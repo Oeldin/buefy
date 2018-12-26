@@ -1,4 +1,7 @@
-<template>
+<template v-if="newPack !== 'vmdi'">
+    <icon-component />
+</template>
+<template v-else>
     <span class="icon" :class="[newType, size]">
         <i :class="[newPack, newIcon, newCustomSize, customClass]"/>
     </span>
@@ -8,6 +11,9 @@
     import config from '../../utils/config'
 
     export default {
+        components: {
+            'icon-component': () => loadIcon()
+        },
         name: 'BIcon',
         props: {
             type: [String, Object],
@@ -80,6 +86,14 @@
             }
         },
         methods: {
+            loadIcon(){
+                let icon = this.icon;
+                icon = icon.split("-");
+                icon = icon.map(x => x.charAt(0).toUpperCase() + x.slice(1));
+                icon = icon.join("");
+                return import("vue-material-design-icons/" + icon + ".vue");
+            },
+            
             /**
              * Equivalent FA icon name of the MDI.
              */
