@@ -12,7 +12,7 @@
 
     export default {
         components: {
-            'icon-component': () => loadIcon()
+            'icon-component': () => this.loadIcon()
         },
         name: 'BIcon',
         props: {
